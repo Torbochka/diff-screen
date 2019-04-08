@@ -13,20 +13,30 @@ let unzipInObject = async (data) => {
         const files = contents.files;
 
         for (let file in files) {
-            if (files.hasOwnProperty(file)) {
+            if (files.hasOwnProperty(file) && file.includes('json')) {
                 console.log(file);
 
-                let isIncludes = file.includes('expected') || file.includes('diff') || file.includes('json');
+                let text = await files[file].async('text');
+                let obj = JSON.parse(text);
 
-                if (!oImgs.hasOwnProperty(file) && !isIncludes) {
+                console.log(obj);
 
-                    let nfile =file.substr(0, file.length-11);
+                // oImgs[id++] = { 'actual': files[file],
+                //     'expected': files[`${nfile}-expected.jpg`],
+                //     'diff': files[`${nfile}-diff.jpg`]
+                // }
 
-                    oImgs[id++] = { 'actual': files[file],
-                        'expected': files[`${nfile}-expected.jpg`],
-                        'diff': files[`${nfile}-diff.jpg`]
-                    }
-                }
+                // let isIncludes = file.includes('expected') || file.includes('diff') || file.includes('json');
+                //
+                // if (!oImgs.hasOwnProperty(file) && !isIncludes) {
+                //
+                //     let nfile =file.substr(0, file.length-11);
+                //
+                //     oImgs[id++] = { 'actual': files[file],
+                //         'expected': files[`${nfile}-expected.jpg`],
+                //         'diff': files[`${nfile}-diff.jpg`]
+                //     }
+                // }
             }
         }
     } catch (e) {
