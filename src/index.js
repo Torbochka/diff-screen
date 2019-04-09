@@ -1,42 +1,32 @@
 import JSZip from 'jszip';
+import View from './view.js';
+import Images from './images.hbs';
 const uploadFile = document.getElementById('uploadFile');
 const zip = new JSZip();
-// const fileReader = new FileReader();
 
-let unzipInObject = async (data) => {
-
-    const oImgs = {};
+let unzipImgInObj = async (data) => {
+    const oImgs = {
+        images: []
+    };
     let id = 0;
 
     try {
-        const contents = await zip.loadAsync(data, { base64: true });
+        const contents = await zip.loadAsync(data);
         const files = contents.files;
 
         for (let file in files) {
             if (files.hasOwnProperty(file) && file.includes('json')) {
-                console.log(file);
 
                 let text = await files[file].async('text');
                 let obj = JSON.parse(text);
+                const [actual, expected, diff] = [obj.actual, obj.expected, obj.diff];
 
-                console.log(obj);
-
-                // oImgs[id++] = { 'actual': files[file],
-                //     'expected': files[`${nfile}-expected.jpg`],
-                //     'diff': files[`${nfile}-diff.jpg`]
-                // }
-
-                // let isIncludes = file.includes('expected') || file.includes('diff') || file.includes('json');
-                //
-                // if (!oImgs.hasOwnProperty(file) && !isIncludes) {
-                //
-                //     let nfile =file.substr(0, file.length-11);
-                //
-                //     oImgs[id++] = { 'actual': files[file],
-                //         'expected': files[`${nfile}-expected.jpg`],
-                //         'diff': files[`${nfile}-diff.jpg`]
-                //     }
-                // }
+                oImgs.images.push({
+                    'id': id++,
+                    'actual': await files[actual].async('base64'),
+                    'expected': await files[expected].async('base64'),
+                    'diff': await files[diff].async('base64')
+                })
             }
         }
     } catch (e) {
@@ -46,6 +36,6 @@ let unzipInObject = async (data) => {
     return oImgs;
 };
 
-uploadFile.addEventListener('change', e => {
-    console.log(unzipInObject(e.target.files[0]));
+uploadFile.addEventListener('change', async e => {
+    View.render(Images, await unzipImgInObj(e.target.files[0]), 'body');
 });

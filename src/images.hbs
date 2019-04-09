@@ -1,0 +1,17 @@
+{{#each images}}
+    <div class="row">
+        <div class="column">
+            <img class="thumbnail" src="data:image/png;base64, {{actual}}" alt="">
+        </div>
+        <div class="column">
+            <img class="thumbnail" src="data:image/png;base64, {{expected}}" alt="">
+        </div>
+        <div class="column">
+            <img class="thumbnail" src="data:image/png;base64, {{diff}}" alt="">
+        </div>
+        <div class="column">
+            <input type="checkbox">
+            <label class="label-inline" for="confirmField" data-id="{{id}}">Согласование</label>
+        </div>
+    </div>
+{{/each}}
