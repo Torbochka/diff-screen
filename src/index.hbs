@@ -10,16 +10,17 @@
 </head>
 <body>
 <div class="container">
-    <div class="row">
-        <div class="column">
-            <input type="file" id="uploadFile">
-            <!--<label for="uploadFile">Select some files</label>-->
+    <div class="top">
+        <div class="row">
+            <div class="column">
+                <input type="file" id="uploadFile" style="display: none;">
+                <label for="uploadFile" class="button">Загрузить</label>
+            </div>
         </div>
     </div>
     <div id="body"></div>
-    <div class="row">
-        <div class="column">.column</div>
-        <div class="column">.column</div>
+    <div class="footer">
+        <button id="save" class="button button-outline">Выгрузить</button>
     </div>
 </div>
 </body>
