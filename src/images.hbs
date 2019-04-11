@@ -1,13 +1,16 @@
 {{#each images}}
     <div class="row">
+        <h4>{{testName}}</h4>
+    </div>
+    <div class="row">
         <div class="column">
-            <img class="thumbnail" src="data:image/png;base64, {{actual}}" alt="">
+            <img class="thumbnail" src="data:image/png;base64, {{actual.value}}" alt="">
         </div>
         <div class="column">
-            <img class="thumbnail" src="data:image/png;base64, {{expected}}" alt="">
+            <img class="thumbnail" src="data:image/png;base64, {{expected.value}}" alt="">
         </div>
         <div class="column">
-            <img class="thumbnail" src="data:image/png;base64, {{diff}}" alt="">
+            <img class="thumbnail" src="data:image/png;base64, {{diff.value}}" alt="">
         </div>
         <div class="column">
             <input id="agreement" data-id="{{id}}" type="checkbox">
