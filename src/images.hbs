@@ -17,4 +17,33 @@
             <label class="label-inline" for="confirmField">Согласование</label>
         </div>
     </div>
+    <div class="row">
+        <div class="column column-100">
+            <div class="scrubber">
+                <img class="actual thumbnail" src="data:image/png;base64, {{actual.value}}" alt="">
+                <img class="expected thumbnail" src="data:image/png;base64, {{expected.value}}" alt="">
+            </div>
+        </div>
+    </div>
 {{/each}}
+
+
+<style>
+    .scrubber img {
+        position: relative;
+        display: none;
+    }
+
+    .scrubber .expected {
+        z-index: 1;
+        left: 0;
+        top: 0;
+    }
+
+    .scrubber .actual {
+        z-index: 2;
+        left: 0;
+        top: 0;
+    }
+
+</style>
