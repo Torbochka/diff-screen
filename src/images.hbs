@@ -20,30 +20,60 @@
     <div class="row">
         <div class="column column-100">
             <div class="scrubber">
-                <img class="actual thumbnail" src="data:image/png;base64, {{actual.value}}" alt="">
-                <img class="expected thumbnail" src="data:image/png;base64, {{expected.value}}" alt="">
+                <div class="actual">
+                    <div class="thumbnail" style="background-image: url(data:image/png;base64,{{actual.value}})"></div>
+                </div>
+                <div class="expected">
+                    <div  class="thumbnail" style="background-image: url(data:image/png;base64,{{expected.value}})"></div>
+                </div>
             </div>
         </div>
     </div>
 {{/each}}
 
-
 <style>
-    .scrubber img {
+    .scrubber {
         position: relative;
-        display: none;
-    }
-
-    .scrubber .expected {
-        z-index: 1;
-        left: 0;
-        top: 0;
+        height: 100vh;
+        width: 100vw;
     }
 
     .scrubber .actual {
-        z-index: 2;
-        left: 0;
+        display: block;
+        position: absolute;
         top: 0;
+        overflow: hidden;
+        height: 100%;
+        width: 50%;
+    }
+
+    .scrubber .expected {
+        display: block;
+        position: absolute;
+        top: 0;
+        overflow: hidden;
+        height: 100%;
+        width: 50%;
+    }
+
+    .scrubber .actual > div {
+        position: absolute;
+        left: 0;
+        height: 100%;
+        width: 100vw;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 100%;
+    }
+
+    .scrubber .expected > div {
+        position: absolute;
+        right: 0;
+        height: 100%;
+        width: 100vw;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 100%;
     }
 
 </style>
